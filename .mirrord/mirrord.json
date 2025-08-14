@@ -1,0 +1,15 @@
+{
+  "feature": {
+    "network": {
+      "incoming": {
+        "mode": "steal"
+      }
+    },
+    "fs": {
+      "mode": "localwithoverrides",
+      "mapping": {
+        "/var/www/html": "{{get_env(name='PWD')}}"
+      }
+    }
+  }
+}
