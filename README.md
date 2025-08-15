@@ -32,8 +32,12 @@ kubectl port-forward deployments/nginx 8080:80
 By browsing `http://localhost:8080/index.php` you should see the expected output :
 
 ```text
-File /var/www/html/test.phpt69q7p0hleqs8jGjiKV created successfully 
-File /var/www/html/test.php renamed successfully Hello, World!
+Current directory: /var/www/html
+File to be created: /var/www/html/test.php
+Tempfile to be created: /var/www/html/test.phpuc9sbrqqerhl8hePL3x
+File /var/www/html/test.phpuc9sbrqqerhl8hePL3x created successfully
+File /var/www/html/test.php renamed successfully
+Hello, World!
 ```
 
 By using mirrord capture the php-fpm traffic and send it to a local php-fpm process:
@@ -45,11 +49,15 @@ mirrord exec --config-file ./.mirrord/mirrord.json --target deployment/php-fpm p
 Output after running mirrord:
 
 ```text
-File /var/www/html/test.phpca772hb9tarv2wwailO created successfully
+Current directory: /var/www/html
+File to be created: /var/www/html/test.php
+Tempfile to be created: /var/www/html/test.phpo1iakqe21u213TcfDSx
+File /var/www/html/test.phpo1iakqe21u213TcfDSx created successfully
 File /var/www/html/test.php failed to rename
-Warning: include_once(/var/www/html/test.php): Failed to open stream: No such file or directory in /var/www/html/index.php on line 14
-
-Warning: include_once(): Failed opening '/var/www/html/test.php' for inclusion (include_path='.:/nix/store/596kvq8a1zladwmyrwl357hm5639hzj1-php-8.4.11/lib/php') in /var/www/html/index.php on line 14
+<br />
+<b>Warning</b>:  include_once(/var/www/html/test.php): Failed to open stream: No such file or directory in <b>/var/www/html/index.php</b> on line <b>15</b><br />
+<br />
+<b>Warning</b>:  include_once(): Failed opening '/var/www/html/test.php' for inclusion (include_path='.:/nix/store/596kvq8a1zladwmyrwl357hm5639hzj1-php-8.4.11/lib/php') in <b>/var/www/html/index.php</b> on line <b>15</b><br />
 ```
 
-You can see that the `test.phpca772hb9tarv2wwailO` file is created in your local folder as expected, but the app failed to rename it to `test.php`.
+You can see that the `test.phpo1iakqe21u213TcfDSx` file is created in your local folder as expected, but the app failed to rename it to `test.php`.
